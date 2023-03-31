@@ -22,6 +22,7 @@ import { v4 } from 'uuid';
             myPickedNodes: null,
             curShipLen: null,
             markedFields: null,
+            allMarkedFields: null,
             rotation: null,
         },
         mounted () {
@@ -37,43 +38,48 @@ import { v4 } from 'uuid';
             click: function () {
 
                 //this.isMarked = !this.isMarked;
-
+                console.log("click");
                 var check = true;
-                for(var i=0;i<this.curShipLen;i+=1)
-                {
-                    switch (this.rotation){
-                        case 0:
+                switch (this.rotation){
+                    case 0:
+                        for(var j=0;j<this.curShipLen;j+=1)
+                        {
+                            if(this.element.x+j<10)
+                            {
+                                this.allMarkedFields.forEach(ship => {
+                                    ship.forEach(node =>{
+                                        if(this.element.x+j==node.x && this.element.y==node.y){
+                                            check=false;
+                                        }
+                                    })
+                                });
+                            }
+                        }
+                        if(check){
                             for(var i=0;i<this.curShipLen;i+=1)
                             {
-                                if(this.element.x+i<10)
-                                {
-                                    this.markedFields.forEach(element => {
-                                        
-                                    });
-                                }
+                                this.isMarked=true; //emitowanie do innych elementow zeby sie marknely
+
+                                this.$emit('elementClick', {
+                                x: this.element.x,
+                                y: this.element.y,
+                                marked: this.isMarked,
+                                });
                             }
-                            break;
-                        case 1:
-                            
-                            break;
-                        case 2:
-                            
-                            break;
-                        case 3:
-                            
-                            break;
-                    }
+                        }
+                        break;
+                    case 1:
+                        
+                        break;
+                    case 2:
+                        
+                        break;
+                    case 3:
+                        
+                        break;
                 }
                 // console.log(this.element.x);
                 // hey elementClick happened with element
-                if(check)
-                {
-                    this.$emit('elementClick', {
-                    x: this.element.x,
-                    y: this.element.y,
-                    marked: this.isMarked,
-                    });
-                }
                 
             },
         },

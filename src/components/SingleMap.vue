@@ -13,6 +13,7 @@
             :curShipLen="curShipLen"
             :myPickedNodes="myPickedNodes"
             :markedFields="markedFields"
+            :allMarkedFields="allMarkedFields"
             :rotation="rotation"
         ></single-element>
     </div>
@@ -38,6 +39,7 @@ export default {
         curShipLen: null,
         myPickedNodes: null,
         markedFields: null,
+        allMarkedFields: null,
     },
     mounted() {
         this.generateCoordinates();

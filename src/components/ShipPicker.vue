@@ -18,6 +18,7 @@ export default {
     data: function () {
         return {
             markedFields: null, //cholera jasna zamiast markedFields podczas usuwania powinno zapisywac te pola do jakiegos allMarkedFields albo cos chyba ze to juz istnieje nwm!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            allMarkedFields: [],
             curShipLen: null,
             ships: [
                 {
@@ -77,6 +78,7 @@ export default {
         this.ships[0].state = 'current';
         this.curShipLen = this.ships[0].length;
         this.markedFields = [];
+        this.allMarkedFields = [];
 
     },
     methods: {
@@ -115,6 +117,9 @@ export default {
             if (curr.length == shipArray.length) {
                 curr.state = 'picked';
                 curr.nodes = shipArray;
+
+                this.allMarkedFields.push(this.markedFields);
+
                 this.markedFields = [];
 
                 this.$emit('shipPicked', curr);
@@ -138,14 +143,15 @@ export default {
                 this.$emit('curShipLen',this.curShipLen);
             }
         },
-        markedFields:{
+        allMarkedFields:{
             handler: function(){
-                this.$emit('markedFields',this.markedFields);
+                this.$emit('allMarkedFields',this.allMarkedFields);
             }
         },
         markedFields: {
             deep: true,
             handler: function(){
+                this.$emit('markedFields',this.markedFields);
                 this.validateShip(this.markedFields);
             }
             // handler: function (fields) {

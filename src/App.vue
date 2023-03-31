@@ -18,6 +18,7 @@
 			:myPickedNodes="myPickedNodes"
 			:curShipLen="curShipLen"
 			:markedFields="markedFields"
+			:allMarkedFields="allMarkedFields"
 			:rotation="rotation"
 		></single-map>
 		<ship-picker 
@@ -26,6 +27,7 @@
 			v-on:shipPicked="shipPicked"
 			v-on:curShipLen="sendCurShipLen"
 			v-on:markedFields="sendMarkedFields"
+			v-on:allMarkedFields="sendAllMarkedFields"
 		></ship-picker>
 
 		<hr class="horizontal">
@@ -70,6 +72,7 @@ export default {
 			phase: 'planning',
 			curShipLen: null,
 			markedFields: null,
+			allMarkedFields: null,
 			rotation: 0,
 		};
 	},
@@ -95,6 +98,9 @@ export default {
 		},
 		sendMarkedFields: function (markedFields){
 			this.markedFields=markedFields;
+		},
+		sendAllMarkedFields: function (allMarkedFields){
+			this.allMarkedFields=allMarkedFields;
 		},
 		elementClicked: function (element) {
 			if (this.gameIsOn) {
